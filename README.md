@@ -97,3 +97,13 @@ public class Cliente extends Thread {
     }
 }
 ```
+
+Per evitare lo stallo e la starvation nella simulazione, sono state utilizzate le seguenti strategie:
+
+1. Semafori: I semafori sono stati utilizzati per sincronizzare l'accesso alle sedie. Ogni cliente cerca di acquisire una sedia utilizzando il semaforo `sedieDisponibili`. Se la sedia è disponibile, il cliente può procedere. Se tutte le sedie sono occupate, il cliente attende finché una sedia non diventa disponibile. Questo evita lo stallo, in quanto i clienti si sospendono in attesa di una sedia.
+
+2. Rilascio delle sedie: Quando un cliente ha finito il suo turno, rilascia la sedia utilizzando `sedieDisponibili.release()`. Ciò consente ad altri clienti di acquisire la sedia e procedere. In questo modo, i clienti non si escludono a vicenda dalle sedie e si evita la starvation, in quanto tutti i clienti hanno la possibilità di ottenere una sedia.
+
+3. Gestione del tempo di attesa: Il tempo di attesa di ciascun cliente è casuale, impostato nel momento della creazione del cliente (`tempoAttesa` in millisecondi). Questo garantisce che i clienti abbiano un'opportunità equa di ottenere una sedia e che nessun cliente sia favorito o penalizzato in modo sistematico.
+
+Queste strategie consentono di gestire in modo efficace l'accesso alle sedie e di prevenire situazioni di stallo (deadlock) o di fame (starvation) nella simulazione.
